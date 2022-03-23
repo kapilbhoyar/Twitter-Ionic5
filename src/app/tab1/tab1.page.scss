@@ -1,0 +1,44 @@
+.tweet-info {
+    font-size: 0.9em;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.handle {
+    padding-left: 4px;
+    color: var(--ion-color-medium);
+}
+
+.wrapper {
+    border-bottom: 1px solid var(--ion-color-light);
+}
+
+.highlight {
+    color: var(--ion-color-primary);
+}
+
+.preview-img {
+    border: 1px solid var(--ion-color-light);
+    border-radius: 10px;
+}
+
+ion-fab {
+    z-index: 1000;
+    position: fixed;
+}
+
+.swiper .swiper-slide {
+    text-align: left;
+    font-size: 0.9em;
+}
+.col1 {
+    padding-left: 3.6vw;
+    padding-top: 10px;
+}
+
+.col2 {
+    padding-right: 3.6vw;
+    // padding-left: 12px;
+}

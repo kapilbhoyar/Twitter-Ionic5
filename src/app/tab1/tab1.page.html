@@ -1,17 +1,208 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 1
+    <ion-buttons slot="start">
+      <ion-button>
+        <!-- <ion-img src="assets\Profile icon.png"></ion-img> -->
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">
+      <ion-icon name="logo-twitter" color="primary" size="large"></ion-icon>
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="sparkles-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <swiper #swiper [config]="config">
+    <ng-template swiperSlide>
+      <div>
+        <div *ngFor="let tweet of tweetData">
+          <ion-row class="wrapper">
+            <ion-col class="col1" size="2">
+              <ion-avatar mode="ios">
+                <ion-img [src]="tweet.img"></ion-img>
+              </ion-avatar>
+            </ion-col>
+            <ion-col class="col2" size="10">
+              <ion-row class="tweet-info">
+                <ion-col size="11">
+                  <span class="name">{{ tweet.username }}</span>
+                  <span class="handle">@{{ tweet.handle }}</span>
+                  <span class="handle"
+                    >- {{ tweet.date*1000 | date: 'shortDate' }}</span
+                  >
+                </ion-col>
+                <ion-col size="1">
+                  <span>
+                    <ion-icon
+                      name="ellipsis-horizontal-outline"
+                      slot="icon-only"
+                      color="medium"
+                      size="small"
+                    ></ion-icon>
+                  </span>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <div [innerHtml]="tweet.text"></div>
+                  <br />
+                  <img
+                    class="preview-img"
+                    [src]="tweet.attachment"
+                    *ngIf="tweet.attachment"
+                  />
+                </ion-col>
+              </ion-row>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+              <ion-row class="ion-justify-content-start">
+                <ion-col>
+                  <ion-button fill="clear" color="medium" size="small">
+                    <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
+                    {{ tweet.response }}
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button
+                    (click)="tweet.retweet = !tweet.retweet"
+                    fill="clear"
+                    [color]="tweet.retweet? 'primary': 'medium'"
+                    size="small"
+                  >
+                    <ion-icon name="repeat-outline" slot="start"></ion-icon>
+                    {{ tweet.retweets }}
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button
+                    (click)="tweet.liked = !tweet.liked"
+                    fill="clear"
+                    [color]="tweet.liked? 'primary': 'medium'"
+                    size="small"
+                  >
+                    <ion-icon name="heart-outline" slot="start"></ion-icon>
+                    {{ tweet.like }}
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="clear" color="medium" size="small">
+                    <ion-icon name="share-social-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+        <!-- <ion-fab vertical="bottom" horizontal="end">
+          <ion-fab-button>
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab> -->
+      </div>
+    </ng-template>
+    <ng-template swiperSlide>
+      <div>
+        <div *ngFor="let tweet of tweetData">
+          <ion-row class="wrapper">
+            <ion-col class="col1" size="2">
+              <ion-avatar>
+                <ion-img [src]="tweet.img"></ion-img>
+              </ion-avatar>
+            </ion-col>
+            <ion-col class="col2" size="10">
+              <ion-row class="tweet-info">
+                <ion-col size="11">
+                  <span class="name">{{ tweet.username }}</span>
+                  <span class="handle">@{{ tweet.handle }}</span>
+                  <span class="handle"
+                    >- {{ tweet.date*1000 | date: 'shortDate' }}</span
+                  >
+                </ion-col>
+                <ion-col size="1">
+                  <span>
+                    <ion-icon
+                      name="ellipsis-horizontal-outline"
+                      slot="icon-only"
+                      color="medium"
+                      size="small"
+                    ></ion-icon>
+                  </span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="padding-top: 0;">
+                <ion-col size="12" style="padding-top: 0;">
+                  <div [innerHtml]="tweet.text"></div>
+                  <br />
+                  <img
+                    class="preview-img"
+                    [src]="tweet.attachment"
+                    *ngIf="tweet.attachment"
+                  />
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="ion-justify-content-start">
+                <ion-col>
+                  <ion-button fill="clear" color="medium" size="small">
+                    <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
+                    {{ tweet.response }}
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button
+                    (click)="tweet.retweet = !tweet.retweet"
+                    fill="clear"
+                    [color]="tweet.retweet? 'primary': 'medium'"
+                    size="small"
+                  >
+                    <ion-icon name="repeat-outline" slot="start"></ion-icon>
+                    {{ tweet.retweets }}
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button
+                    (click)="tweet.liked = !tweet.liked"
+                    fill="clear"
+                    [color]="tweet.liked? 'primary': 'medium'"
+                    size="small"
+                  >
+                    <ion-icon name="heart-outline" slot="start"></ion-icon>
+                    {{ tweet.like }}
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="clear" color="medium" size="small">
+                    <ion-icon name="share-social-outline"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+        
+      </div>
+    </ng-template>
+  </swiper>
+
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- <ion-slides pager="false">
+    <ion-slide>
+      <h1>Awesome Slide Content</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Awesome Slide Content</h1>
+    </ion-slide>
+  </ion-slides> -->
 </ion-content>
